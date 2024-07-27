@@ -7,10 +7,14 @@ pub fn simplifikasi(expression: &str) -> String {
     let mut constant = 0;
 
     for cap in re.captures_iter(expression) {
+        if cap[0].is_empty() {
+            continue;
+        }
+
         let coeff = match &cap[1] {
             "" | "+" => 1,
             "-" => -1,
-            _ => cap[1].parse::<i32>().unwrap(),
+            _ => cap[1].parse::<i32>().unwrap_or(0),
         };
 
         if let Some(var) = cap.get(2) {
@@ -34,11 +38,20 @@ pub fn simplifikasi(expression: &str) -> String {
         })
         .collect::<Vec<String>>();
 
+    simplified_expression.sort_by(|a, b| {
+        if a.chars().all(char::is_numeric) {
+            std::cmp::Ordering::Greater
+        } else if b.chars().all(char::is_numeric) {
+            std::cmp::Ordering::Less
+        } else {
+            a.cmp(b)
+        }
+    });
+
     if constant != 0 {
         simplified_expression.push(constant.to_string());
     }
 
-    simplified_expression.sort();
     let result = simplified_expression.join("+").replace("+-", "-");
     if result.is_empty() {
         "0".to_string()
