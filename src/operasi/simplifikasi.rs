@@ -2,8 +2,9 @@ use std::collections::HashMap;
 use regex::Regex;
 
 pub fn simplifikasi(expression: &str) -> String {
-    let re = Regex::new(r"([+-]?\d*)([a-zA-Z]+)").unwrap();
+    let re = Regex::new(r"([+-]?\d*)([a-zA-Z]+)?").unwrap();
     let mut terms: HashMap<String, i32> = HashMap::new();
+    let mut constant = 0;
 
     for cap in re.captures_iter(expression) {
         let coeff = match &cap[1] {
@@ -11,27 +12,37 @@ pub fn simplifikasi(expression: &str) -> String {
             "-" => -1,
             _ => cap[1].parse::<i32>().unwrap(),
         };
-        let var = cap[2].to_string();
-        *terms.entry(var).or_insert(0) += coeff;
-    }
 
-    let mut simplified_expression = String::new();
-    for (var, coeff) in terms {
-        if coeff > 0 && !simplified_expression.is_empty() {
-            simplified_expression.push('+');
-        }
-        if coeff == 1 {
-            simplified_expression.push_str(&format!("{}", var));
-        } else if coeff == -1 {
-            simplified_expression.push_str(&format!("-{}", var));
+        if let Some(var) = cap.get(2) {
+            let var = var.as_str().to_string();
+            *terms.entry(var).or_insert(0) += coeff;
         } else {
-            simplified_expression.push_str(&format!("{}{}", coeff, var));
+            constant += coeff;
         }
     }
 
-    if simplified_expression.is_empty() {
+    let mut simplified_expression = terms.iter()
+        .filter(|&(_, &v)| v != 0)
+        .map(|(k, &v)| {
+            if v == 1 {
+                k.clone()
+            } else if v == -1 {
+                format!("-{}", k)
+            } else {
+                format!("{}{}", v, k)
+            }
+        })
+        .collect::<Vec<String>>();
+
+    if constant != 0 {
+        simplified_expression.push(constant.to_string());
+    }
+
+    simplified_expression.sort();
+    let result = simplified_expression.join("+").replace("+-", "-");
+    if result.is_empty() {
         "0".to_string()
     } else {
-        simplified_expression
+        result
     }
 }

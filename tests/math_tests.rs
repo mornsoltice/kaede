@@ -163,7 +163,7 @@ fn test_simplifikasi_multiple_variables() {
 
 #[test]
 fn test_simplifikasi_with_constants() {
-    assert_eq!(simplifikasi("2x + 3"), "2x");
+    assert_eq!(simplifikasi("2x + 3"), "2x+3");
     assert_eq!(simplifikasi("3 + 4x - x - 3"), "3x");
 }
 
