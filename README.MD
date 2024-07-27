@@ -55,12 +55,6 @@ let f = |x: f64| x * x;
 let result = integral(f, 0.0, 1.0, 1000).unwrap();
 println!("Integral: {}", result); // Output: ~0.3333
 ```
-## Contoh Kode Limit
-```rust
-let f = |x: f64| x * x;
-let result = limit(f, 2.0, 1e-6).unwrap();
-println!("Limit: {}", result); // Output: 4.0
-```
 ## Jumlah Deret Geometri
 ```rust
 let result = jumlah_deret_geometri(2, 2, 3).unwrap();
