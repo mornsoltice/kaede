@@ -18,6 +18,7 @@ pub use operasi::kosinus::kosinus;
 pub use operasi::tangen::tangen;
 pub use operasi::modulo::modulo;
 pub use operasi::pangkat::pangkat;
+pub use operasi::simplifikasi::simplifikasi;
 
 use std::fmt;
 

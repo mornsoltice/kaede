@@ -141,3 +141,26 @@ fn test_pangkat_fractional_exponent() {
     assert!((pangkat(9.0, 0.5).unwrap() - 3.0).abs() < 1e-6);
     assert!((pangkat(27.0, 1.0/3.0).unwrap() - 3.0).abs() < 1e-6);
 }
+
+fn test_simplifikasi_simple() {
+    assert_eq!(simplifikasi("2x + 3x"), "5x");
+    assert_eq!(simplifikasi("x + x"), "2x");
+}
+
+#[test]
+fn test_simplifikasi_negative() {
+    assert_eq!(simplifikasi("x - x"), "0");
+    assert_eq!(simplifikasi("2x - 3x"), "-x");
+}
+
+#[test]
+fn test_simplifikasi_multiple_variables() {
+    assert_eq!(simplifikasi("2x + 3y + x + y"), "3x+4y");
+    assert_eq!(simplifikasi("2a + 3b - a - b"), "a+2b");
+}
+
+#[test]
+fn test_simplifikasi_with_constants() {
+    assert_eq!(simplifikasi("2x + 3"), "2x");
+    assert_eq!(simplifikasi("3 + 4x - x - 3"), "3x");
+}
