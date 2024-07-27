@@ -14,6 +14,8 @@ Rust library untuk operasi matematika sederhana, dan akan terus di update mungki
 - **Eksponen**
 - **Akar Kuadrat**
 - **Deret Aritmatika**
+- **Matrix**
+- **Simplifikasi Aljabar**
 
 
 ## Instalasi
