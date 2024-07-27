@@ -18,7 +18,7 @@ Tambahkan dependensi ini ke file `Cargo.toml` Anda:
 [dependencies]
 kaede = "0.1"
 ```
-atau
+atau bisa melakukan command
 ```sh
 cargo add kaede
 ```
