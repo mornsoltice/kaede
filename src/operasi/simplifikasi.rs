@@ -2,44 +2,64 @@ use std::collections::HashMap;
 use regex::Regex;
 
 pub fn simplifikasi(expression: &str) -> String {
-    let re = Regex::new(r"([+-]?\d*\.?\d*)([a-zA-Z]*)").unwrap();
-    let mut terms: HashMap<String, f64> = HashMap::new();
+    let re = Regex::new(r"([+-]?\d*)([a-zA-Z]*)").unwrap();
+    let mut terms: HashMap<String, i32> = HashMap::new();
+    let mut constant = 0;
 
     for cap in re.captures_iter(expression) {
-        if cap[0].is_empty() { continue; }
-
-        let coeff = match &cap[1] {
-            "" | "+" => 1.0,
-            "-" => -1.0,
-            _ => cap[1].parse::<f64>().unwrap(),
-        };
-        let var = cap[2].to_string();
-        *terms.entry(var).or_insert(0.0) += coeff;
-    }
-
-    let mut sorted_terms: Vec<_> = terms.into_iter().collect();
-    sorted_terms.sort_by(|a, b| a.0.cmp(&b.0));
-
-    let mut simplified_expression = String::new();
-    for (var, coeff) in sorted_terms {
-        if coeff == 0.0 {
+        if cap[0].is_empty() {
             continue;
         }
-        if coeff > 0.0 && !simplified_expression.is_empty() {
-            simplified_expression.push('+');
-        }
-        if coeff == 1.0 && !var.is_empty() {
-            simplified_expression.push_str(&format!("{}", var));
-        } else if coeff == -1.0 && !var.is_empty() {
-            simplified_expression.push_str(&format!("-{}", var));
+
+        let coeff = match &cap[1] {
+            "" | "+" => 1,
+            "-" => -1,
+            _ => cap[1].parse::<i32>().unwrap_or(0),
+        };
+
+        if let Some(var) = cap.get(2) {
+            if var.as_str().is_empty() {
+                constant += coeff;
+            } else {
+                let var = var.as_str().to_string();
+                *terms.entry(var).or_insert(0) += coeff;
+            }
         } else {
-            simplified_expression.push_str(&format!("{}{}", coeff, var));
+            constant += coeff;
         }
     }
 
-    if simplified_expression.is_empty() {
+    let mut simplified_expression = terms.iter()
+        .filter(|&(_, &v)| v != 0)
+        .map(|(k, &v)| {
+            if v == 1 {
+                k.clone()
+            } else if v == -1 {
+                format!("-{}", k)
+            } else {
+                format!("{}{}", v, k)
+            }
+        })
+        .collect::<Vec<String>>();
+
+    if constant != 0 {
+        simplified_expression.push(constant.to_string());
+    }
+
+    simplified_expression.sort_by(|a, b| {
+        if a.chars().all(char::is_numeric) {
+            std::cmp::Ordering::Greater
+        } else if b.chars().all(char::is_numeric) {
+            std::cmp::Ordering::Less
+        } else {
+            a.cmp(b)
+        }
+    });
+
+    let result = simplified_expression.join("+").replace("+-", "-");
+    if result.is_empty() {
         "0".to_string()
     } else {
-        simplified_expression
+        result
     }
 }
