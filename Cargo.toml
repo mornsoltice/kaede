@@ -1,6 +1,15 @@
 [package]
 name = "kaede"
 version = "0.1.0"
+authors = ["Khairandra Muhamad Nandyka <khairandramnandyka@gmail.com>"]
 edition = "2021"
+
+description = "Kaede adalah pustaka matematika sederhana untuk Rust."
+
+license = "MIT"
+
+repository = "https://github.com/mornsoltice/kaede"
+
+keywords = ["matematika", "rust", "pustaka"]
 
 [dependencies]
