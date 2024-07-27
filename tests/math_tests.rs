@@ -45,7 +45,6 @@ fn test_normal_pdf() {
     assert!(matches!(normal_pdf(0.0, 0.0, 0.0).unwrap_err(), MathError::TipeError(_)));
 }
 
-#[test]
 fn test_limit_polynomial() {
     let f = |x: f64| x * x; // Fungsi polinomial f(x) = x^2
     let result = limit(f, 2.0, 1e-6).unwrap();
@@ -120,4 +119,11 @@ fn test_kosinus() {
 fn test_tangen() {
     assert!((tangen(0.0) - 0.0).abs() < 1e-6);
     assert!((tangen(std::f64::consts::PI / 4.0) - 1.0).abs() < 1e-6);
+}
+
+#[test]
+fn test_modulo() {
+    assert_eq!(modulo(10, 3).unwrap(), 1);
+    assert_eq!(modulo(10, 5).unwrap(), 0);
+    assert!(matches!(modulo(10, 0), Err(MathError::ErrorDibagiNol)));
 }

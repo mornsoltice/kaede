@@ -15,3 +15,4 @@ pub mod logaritma;
 pub mod sinus;
 pub mod kosinus;
 pub mod tangen;
+pub mod modulo;

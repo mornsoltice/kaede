@@ -17,6 +17,7 @@ pub use operasi::logaritma::logaritma;
 pub use operasi::sinus::sinus;
 pub use operasi::kosinus::kosinus;
 pub use operasi::tangen::tangen;
+pub use operasi::modulo::modulo;
 
 use std::fmt;
 
