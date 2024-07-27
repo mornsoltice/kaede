@@ -4,7 +4,6 @@ Rust library untuk operasi matematika sederhana, dan akan terus di update mungki
 ## Operasi Yang Didukung
 - **Operasi Dasar(Pertambahan, Pengurangan, Perkalian, Pembagian)**
 - **Integral**
-- **Limit(Polinomial)**
 - **Modus**
 - **Deret Geometri**
 - **Faktorial**
@@ -12,6 +11,7 @@ Rust library untuk operasi matematika sederhana, dan akan terus di update mungki
 - **Modulo**
 - **Logaritma & Logaritma Natural**
 - **Trigonometri (Sin, Cos, Tan)**
+- **Eksponen**
 
 
 ## Instalasi

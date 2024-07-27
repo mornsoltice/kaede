@@ -13,3 +13,4 @@ repository = "https://github.com/mornsoltice/kaede"
 keywords = ["matematika", "rust", "library"]
 
 [dependencies]
+num = "0.4"

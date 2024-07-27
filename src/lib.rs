@@ -8,7 +8,6 @@ pub use operasi::faktorial::faktorial;
 pub use operasi::jumlah_deret_geometri::jumlah_deret_geometri;
 pub use operasi::modus::modus;
 pub use operasi::normal_pdf::normal_pdf;
-pub use operasi::limit::limit;
 pub use operasi::integral::integral;
 pub use operasi::jumlah_deret_aritmatika::jumlah_deret_aritmatika;
 pub use operasi::akar_kuadrat::akar_kuadrat;
@@ -18,6 +17,7 @@ pub use operasi::sinus::sinus;
 pub use operasi::kosinus::kosinus;
 pub use operasi::tangen::tangen;
 pub use operasi::modulo::modulo;
+pub use operasi::pangkat::pangkat;
 
 use std::fmt;
 

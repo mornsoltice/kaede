@@ -46,51 +46,27 @@ fn test_normal_pdf() {
 }
 
 #[test]
-fn test_limit_polynomial() {
-    let f = |x: f64| x * x; // Fungsi polinomial f(x) = x^2
-    let result = limit(f, 2.0, 1e-6).unwrap();
-    assert!((result - 4.0).abs() < 1e-6, "Expected 4.0 but got {}", result); // Limit f(x) saat x mendekati 2 adalah 4
-}
-
-#[test]
-fn test_limit_trigonometric() {
-    let f = |x: f64| (x.sin() - x) / (x * x); // Fungsi trigonometri f(x) = (sin(x) - x) / x^2
-    let result = limit(f, 1e-6, 1e-6).unwrap();
-    assert!((result - (-1.0 / 6.0)).abs() < 1e-6, "Expected -1/6 but got {}", result); // Limit f(x) saat x mendekati 0 adalah -1/6
-}
-
-#[test]
-fn test_limit_logarithmic() {
-    let f = |x: f64| (x.ln() - 1.0) / x; // Fungsi logaritma f(x) = (ln(x) - 1) / x
-    let result = limit(f, 1.0, 1e-6).unwrap();
-    assert!((result - 0.0).abs() < 1e-6, "Expected 0 but got {}", result); // Limit f(x) saat x mendekati 1 adalah 0
-}
-
-#[test]
-fn test_limit_exponential() {
-    let f = |x: f64| (x.exp() - x - 1.0) / (x * x); // Fungsi eksponensial f(x) = (exp(x) - x - 1) / x^2
-    let result = limit(f, 1e-6, 1e-6).unwrap();
-    assert!((result - 0.5).abs() < 1e-6, "Expected 0.5 but got {}", result); // Limit f(x) saat x mendekati 0 adalah 0.5
-}
-
-#[test]
-fn test_limit_nonexistent() {
-    let f = |x: f64| if x < 1.0 { x } else { -x }; // Fungsi yang tidak memiliki limit terdefinisi di x = 1
-    let result = limit(f, 1.0, 1e-6);
-    assert!(matches!(result, Err(MathError::TipeError(_))));
-}
-
-
-#[test]
 fn test_integral() {
     let f = |x: f64| x * x;
     assert!((integral(f, 0.0, 1.0, 1000).unwrap() - 1.0 / 3.0).abs() < 1e-4);
 }
 
 #[test]
-fn test_akar_kuadrat() {
-    assert_eq!(akar_kuadrat(9.0).unwrap(), 3.0);
-    assert!(matches!(akar_kuadrat(-1.0).unwrap_err(), MathError::TipeError(_)));
+#[test]
+fn test_akar_kuadrat_positive() {
+    assert_eq!(akar_kuadrat(4.0).unwrap(), Complex::new(2.0, 0.0));
+    assert_eq!(akar_kuadrat(9.0).unwrap(), Complex::new(3.0, 0.0));
+}
+
+#[test]
+fn test_akar_kuadrat_zero() {
+    assert_eq!(akar_kuadrat(0.0).unwrap(), Complex::new(0.0, 0.0));
+}
+
+#[test]
+fn test_akar_kuadrat_negative() {
+    assert_eq!(akar_kuadrat(-4.0).unwrap(), Complex::new(0.0, 2.0));
+    assert_eq!(akar_kuadrat(-9.0).unwrap(), Complex::new(0.0, 3.0));
 }
 
 #[test]
@@ -128,4 +104,52 @@ fn test_modulo() {
     assert_eq!(modulo(10, 3).unwrap(), 1);
     assert_eq!(modulo(10, 5).unwrap(), 0);
     assert!(matches!(modulo(10, 0), Err(MathError::ErrorDibagiNol)));
+}
+
+#[test]
+fn test_pangkat_positive_exponent() {
+    assert_eq!(pangkat(2.0, 3.0).unwrap(), 8.0);
+    assert_eq!(pangkat(5.0, 2.0).unwrap(), 25.0);
+}
+
+#[test]
+fn test_pangkat_negative_exponent() {
+    assert!((pangkat(2.0, -3.0).unwrap() - 0.125).abs() < 1e-6);
+    assert!((pangkat(5.0, -2.0).unwrap() - 0.04).abs() < 1e-6);
+}
+
+#[test]
+fn test_pangkat_zero_exponent() {
+    assert_eq!(pangkat(2.0, 0.0).unwrap(), 1.0);
+    assert_eq!(pangkat(5.0, 0.0).unwrap(), 1.0);
+}
+
+#[test]
+fn test_pangkat_zero_base() {
+    assert_eq!(pangkat(0.0, 3.0).unwrap(), 0.0);
+    assert_eq!(pangkat(0.0, 1.0).unwrap(), 0.0);
+}
+
+#[test]
+fn test_pangkat_zero_base_negative_exponent() {
+    assert!(matches!(pangkat(0.0, -1.0), Err(MathError::TipeError(_))));
+    assert!(matches!(pangkat(0.0, -3.0), Err(MathError::TipeError(_))));
+}
+
+#[test]
+fn test_pangkat_negative_base_positive_exponent() {
+    assert_eq!(pangkat(-2.0, 2.0).unwrap(), 4.0);
+    assert_eq!(pangkat(-3.0, 2.0).unwrap(), 9.0);
+}
+
+#[test]
+fn test_pangkat_negative_base_negative_exponent() {
+    assert!((pangkat(-2.0, -2.0).unwrap() - 0.25).abs() < 1e-6);
+    assert!((pangkat(-3.0, -2.0).unwrap() - 0.111111).abs() < 1e-6);
+}
+
+#[test]
+fn test_pangkat_fractional_exponent() {
+    assert!((pangkat(9.0, 0.5).unwrap() - 3.0).abs() < 1e-6);
+    assert!((pangkat(27.0, 1.0/3.0).unwrap() - 3.0).abs() < 1e-6);
 }
