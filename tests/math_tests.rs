@@ -1,4 +1,5 @@
 use kaede::*; 
+use num::complex::Complex;
 
 #[test]
 fn test_tambah() {
@@ -51,7 +52,6 @@ fn test_integral() {
     assert!((integral(f, 0.0, 1.0, 1000).unwrap() - 1.0 / 3.0).abs() < 1e-4);
 }
 
-#[test]
 #[test]
 fn test_akar_kuadrat_positive() {
     assert_eq!(akar_kuadrat(4.0).unwrap(), Complex::new(2.0, 0.0));
