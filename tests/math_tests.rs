@@ -47,17 +47,17 @@ fn test_normal_pdf() {
 
 #[test]
 fn test_limit_polynomial() {
-        let f = |x: f64| x * x; // Fungsi polinomial f(x) = x^2
-        let result = limit(f, 2.0, 1e-6).unwrap();
-        assert!((result - 4.0).abs() < 1e-6, "Expected 4.0 but got {}", result); // Limit f(x) saat x mendekati 2 adalah 4
-    }
+    let f = |x: f64| x * x; // Fungsi polinomial f(x) = x^2
+    let result = limit(f, 2.0, 1e-6).unwrap();
+    assert!((result - 4.0).abs() < 1e-6, "Expected 4.0 but got {}", result); // Limit f(x) saat x mendekati 2 adalah 4
+}
 
 #[test]
 fn test_limit_trigonometric() {
-        let f = |x: f64| (x.sin() - x) / (x * x); // Fungsi trigonometri f(x) = (sin(x) - x) / x^2
-        let result = limit(f, 0.0, 1e-6).unwrap();
-        assert!((result - (-1.0 / 6.0)).abs() < 1e-6, "Expected -1/6 but got {}", result); // Limit f(x) saat x mendekati 0 adalah -1/6
-    }
+    let f = |x: f64| (x.sin() - x) / (x * x); // Fungsi trigonometri f(x) = (sin(x) - x) / x^2
+    let result = limit(f, 0.0, 1e-6).unwrap();
+    assert!((result - (-1.0 / 6.0)).abs() < 1e-6, "Expected -1/6 but got {}", result); // Limit f(x) saat x mendekati 0 adalah -1/6
+}
 
 #[test]
 fn test_limit_logarithmic() {
@@ -65,12 +65,14 @@ fn test_limit_logarithmic() {
     let result = limit(f, 1.0, 1e-6).unwrap();
     assert!((result - 0.0).abs() < 1e-6, "Expected 0 but got {}", result); // Limit f(x) saat x mendekati 1 adalah 0
 }
+
 #[test]
 fn test_limit_exponential() {
     let f = |x: f64| (x.exp() - x - 1.0) / (x * x); // Fungsi eksponensial f(x) = (exp(x) - x - 1) / x^2
     let result = limit(f, 0.0, 1e-6).unwrap();
     assert!((result - 0.5).abs() < 1e-6, "Expected 0.5 but got {}", result); // Limit f(x) saat x mendekati 0 adalah 0.5
 }
+
 #[test]
 fn test_limit_nonexistent() {
     let f = |x: f64| if x < 1.0 { x } else { -x }; // Fungsi yang tidak memiliki limit terdefinisi di x = 1

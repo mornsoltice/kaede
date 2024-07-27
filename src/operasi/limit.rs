@@ -6,11 +6,8 @@ where
 {
     let limit_left = f(x - epsilon);
     let limit_right = f(x + epsilon);
-    let tolerance = 1e-6;
 
-    println!("Limit left: {}", limit_left);
-    println!("Limit right: {}", limit_right);
-    println!("Tolerance: {}", tolerance);
+    let tolerance = 1e-6;
 
     if (limit_left - limit_right).abs() < tolerance {
         Ok((limit_left + limit_right) / 2.0)
