@@ -9,6 +9,9 @@ Rust library untuk operasi matematika sederhana, dan akan terus di update mungki
 - **Deret Geometri**
 - **Faktorial**
 - **Fungsi PDF Normal**
+- **Modulo**
+- **Logaritma & Logaritma Natural**
+- **Trigonometri (Sin, Cos, Tan)**
 
 
 ## Instalasi
