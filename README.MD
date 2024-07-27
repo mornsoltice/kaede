@@ -18,7 +18,10 @@ Tambahkan dependensi ini ke file `Cargo.toml` Anda:
 [dependencies]
 kaede = "0.1"
 ```
-
+atau
+```sh
+cargo add kaede
+```
 ## Contoh Kode Pertambahan
 ```rust
 let result = tambah(5, 3).unwrap();
