@@ -1,5 +1,4 @@
 use kaede::*; 
-use num::complex::Complex;
 
 #[test]
 fn test_tambah() {
@@ -53,20 +52,9 @@ fn test_integral() {
 }
 
 #[test]
-fn test_akar_kuadrat_positive() {
-    assert_eq!(akar_kuadrat(4.0).unwrap(), Complex::new(2.0, 0.0));
-    assert_eq!(akar_kuadrat(9.0).unwrap(), Complex::new(3.0, 0.0));
-}
-
-#[test]
-fn test_akar_kuadrat_zero() {
-    assert_eq!(akar_kuadrat(0.0).unwrap(), Complex::new(0.0, 0.0));
-}
-
-#[test]
-fn test_akar_kuadrat_negative() {
-    assert_eq!(akar_kuadrat(-4.0).unwrap(), Complex::new(0.0, 2.0));
-    assert_eq!(akar_kuadrat(-9.0).unwrap(), Complex::new(0.0, 3.0));
+fn test_akar_kuadrat() {
+    assert_eq!(akar_kuadrat(9.0).unwrap(), 3.0);
+    assert!(matches!(akar_kuadrat(-1.0).unwrap_err(), MathError::TipeError(_)));
 }
 
 #[test]
