@@ -48,7 +48,7 @@ fn test_normal_pdf() {
 #[test]
 fn test_limit() {
     let f = |x: f64| x * x;
-    let epsilon = 1e-6;
+    let epsilon = 1e-6; 
     let result = limit(f, 2.0, epsilon).unwrap();
     assert!((result - 4.0).abs() < 1e-6, "Expected 4.0 but got {}", result);
 }

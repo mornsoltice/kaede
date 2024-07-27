@@ -90,12 +90,15 @@ where
 {
     let limit_left = f(x - epsilon);
     let limit_right = f(x + epsilon);
-    if (limit_left - limit_right).abs() < epsilon {
+    let tolerance = 1e-6; 
+    
+    if (limit_left - limit_right).abs() < tolerance {
         Ok((limit_left + limit_right) / 2.0)
     } else {
         Err(MathError::TipeError("Limit tidak terdefinisi".to_string()))
     }
 }
+
 
 pub fn integral<F>(f: F, a: f64, b: f64, n: usize) -> Result<f64, MathError>
 where
