@@ -18,3 +18,6 @@ pub mod tangen;
 pub mod modulo;
 pub mod pangkat;
 pub mod simplifikasi; 
+pub mod trigonometry;
+pub mod matrix;
+pub mod roots;

@@ -1,4 +1,5 @@
 use kaede::*; 
+pub type Matriks = Vec<Vec<f64>>;
 
 #[test]
 fn test_tambah() {
@@ -142,6 +143,7 @@ fn test_pangkat_fractional_exponent() {
     assert!((pangkat(27.0, 1.0/3.0).unwrap() - 3.0).abs() < 1e-6);
 }
 
+#[test]
 fn test_simplifikasi_simple() {
     assert_eq!(simplifikasi("2x + 3x"), "5x");
     assert_eq!(simplifikasi("x + x"), "2x");
@@ -163,4 +165,107 @@ fn test_simplifikasi_multiple_variables() {
 fn test_simplifikasi_with_constants() {
     assert_eq!(simplifikasi("2x + 3"), "2x");
     assert_eq!(simplifikasi("3 + 4x - x - 3"), "3x");
+}
+
+#[test]
+fn test_tambah_matriks() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0, 3.0],
+        vec![4.0, 5.0, 6.0],
+    ];
+    let b: Matriks = vec![
+        vec![7.0, 8.0, 9.0],
+        vec![10.0, 11.0, 12.0],
+    ];
+    let expected: Matriks = vec![
+        vec![8.0, 10.0, 12.0],
+        vec![14.0, 16.0, 18.0],
+    ];
+    assert_eq!(tambah_matriks(&a, &b).unwrap(), expected);
+}
+
+#[test]
+fn test_kurang_matriks() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0, 3.0],
+        vec![4.0, 5.0, 6.0],
+    ];
+    let b: Matriks = vec![
+        vec![7.0, 8.0, 9.0],
+        vec![10.0, 11.0, 12.0],
+    ];
+    let expected: Matriks = vec![
+        vec![-6.0, -6.0, -6.0],
+        vec![-6.0, -6.0, -6.0],
+    ];
+    assert_eq!(kurang_matriks(&a, &b).unwrap(), expected);
+}
+
+#[test]
+fn test_kali_matriks() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0],
+        vec![3.0, 4.0],
+    ];
+    let b: Matriks = vec![
+        vec![5.0, 6.0],
+        vec![7.0, 8.0],
+    ];
+    let expected: Matriks = vec![
+        vec![19.0, 22.0],
+        vec![43.0, 50.0],
+    ];
+    assert_eq!(kali_matriks(&a, &b).unwrap(), expected);
+}
+
+#[test]
+fn test_transpose_matriks() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0, 3.0],
+        vec![4.0, 5.0, 6.0],
+    ];
+    let expected: Matriks = vec![
+        vec![1.0, 4.0],
+        vec![2.0, 5.0],
+        vec![3.0, 6.0],
+    ];
+    assert_eq!(transpose_matriks(&a), expected);
+}
+
+#[test]
+fn test_tambah_matriks_dimension_mismatch() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0],
+        vec![3.0, 4.0],
+    ];
+    let b: Matriks = vec![
+        vec![5.0, 6.0, 7.0],
+        vec![8.0, 9.0, 10.0],
+    ];
+    assert!(tambah_matriks(&a, &b).is_err());
+}
+
+#[test]
+fn test_kurang_matriks_dimension_mismatch() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0],
+        vec![3.0, 4.0],
+    ];
+    let b: Matriks = vec![
+        vec![5.0, 6.0, 7.0],
+        vec![8.0, 9.0, 10.0],
+    ];
+    assert!(kurang_matriks(&a, &b).is_err());
+}
+
+#[test]
+fn test_kali_matriks_dimension_mismatch() {
+    let a: Matriks = vec![
+        vec![1.0, 2.0],
+        vec![3.0, 4.0],
+    ];
+    let b: Matriks = vec![
+        vec![5.0, 6.0],
+    ];
+    assert!(kali_matriks(&a, &b).is_err());
 }

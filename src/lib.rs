@@ -12,13 +12,16 @@ pub use operasi::integral::integral;
 pub use operasi::jumlah_deret_aritmatika::jumlah_deret_aritmatika;
 pub use operasi::akar_kuadrat::akar_kuadrat;
 pub use operasi::logaritma_natural::logaritma_natural;
-pub use operasi::logaritma::logaritma;
+pub use operasi::logaritma::{logaritma, log10, log2};
 pub use operasi::sinus::sinus;
 pub use operasi::kosinus::kosinus;
 pub use operasi::tangen::tangen;
 pub use operasi::modulo::modulo;
 pub use operasi::pangkat::pangkat;
 pub use operasi::simplifikasi::simplifikasi;
+pub use operasi::roots::{akar_empat, akar_kubik};
+pub use operasi::matrix::{tambah_matriks, kurang_matriks, kali_matriks, transpose_matriks};
+pub use operasi::trigonometry::{cot, sec, csc};
 
 use std::fmt;
 

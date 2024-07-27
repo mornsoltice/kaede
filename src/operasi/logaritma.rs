@@ -7,3 +7,11 @@ pub fn logaritma(x: f64, basis: f64) -> Result<f64, MathError> {
         Ok(x.log(basis))
     }
 }
+
+pub fn log2(x: f64) -> Result<f64, MathError> {
+    logaritma(x, 2.0)
+}
+
+pub fn log10(x: f64) -> Result<f64, MathError> {
+    logaritma(x, 10.0)
+}
