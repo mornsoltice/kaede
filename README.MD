@@ -12,6 +12,8 @@ Rust library untuk operasi matematika sederhana, dan akan terus di update mungki
 - **Logaritma & Logaritma Natural**
 - **Trigonometri (Sin, Cos, Tan)**
 - **Eksponen**
+- **Akar Kuadrat Positif & Negatif**
+- **Deret Aritmatika**
 
 
 ## Instalasi
