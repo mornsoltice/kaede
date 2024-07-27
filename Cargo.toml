@@ -4,12 +4,12 @@ version = "0.1.0"
 authors = ["Khairandra Muhamad Nandyka <khairandramnandyka@gmail.com>"]
 edition = "2021"
 
-description = "Kaede adalah pustaka matematika sederhana untuk Rust."
+description = "Kaede adalah rust library untuk operasi matematika sederhana."
 
 license = "MIT"
 
 repository = "https://github.com/mornsoltice/kaede"
 
-keywords = ["matematika", "rust", "pustaka"]
+keywords = ["matematika", "rust", "library"]
 
 [dependencies]
