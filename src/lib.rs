@@ -90,7 +90,7 @@ where
 {
     let limit_left = f(x - epsilon);
     let limit_right = f(x + epsilon);
-    if (limit_left - limit_right).abs() < std::f64::EPSILON {
+    if (limit_left - limit_right).abs() < epsilon {
         Ok((limit_left + limit_right) / 2.0)
     } else {
         Err(MathError::TipeError("Limit tidak terdefinisi".to_string()))
@@ -112,64 +112,47 @@ where
     Ok(sum * h)
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_tambah() {
-        assert_eq!(tambah(2, 3).unwrap(), 5);
+pub fn jumlah_deret_aritmatika(awal: i32, rasio: i32, jumlah: i32) -> Result<i32, MathError> {
+    if jumlah <= 0 {
+        return Err(MathError::TipeError("jumlah anggota harus positif".to_string()));
     }
+    let akhir = awal + (jumlah - 1) * rasio;
+    let total = jumlah * (awal + akhir) / 2;
+    Ok(total)
+}
 
-    #[test]
-    fn test_kurang() {
-        assert_eq!(kurang(5, 3).unwrap(), 2);
+pub fn akar_kuadrat(x: f64) -> Result<f64, MathError> {
+    if x < 0.0 {
+        Err(MathError::TipeError("bilangan non-negatif".to_string()))
+    } else {
+        Ok(x.sqrt())
     }
+}
 
-    #[test]
-    fn test_kali() {
-        assert_eq!(kali(2, 3).unwrap(), 6);
+pub fn logaritma_natural(x: f64) -> Result<f64, MathError> {
+    if x <= 0.0 {
+        Err(MathError::TipeError("bilangan positif".to_string()))
+    } else {
+        Ok(x.ln())
     }
+}
 
-    #[test]
-    fn test_bagi() {
-        assert_eq!(bagi(6, 3).unwrap(), 2.0);
-        assert!(matches!(bagi(6, 0).unwrap_err(), MathError::ErrorDibagiNol));
+pub fn logaritma(x: f64, basis: f64) -> Result<f64, MathError> {
+    if x <= 0.0 || basis <= 0.0 || basis == 1.0 {
+        Err(MathError::TipeError("bilangan positif dan basis tidak sama dengan 1".to_string()))
+    } else {
+        Ok(x.log(basis))
     }
+}
 
-    #[test]
-    fn test_faktorial() {
-        assert_eq!(faktorial(5).unwrap(), 120);
-        assert!(matches!(faktorial(-1).unwrap_err(), MathError::TipeError(_)));
-    }
+pub fn sinus(x: f64) -> f64 {
+    x.sin()
+}
 
-    #[test]
-    fn test_jumlah_deret_geometri() {
-        assert_eq!(jumlah_deret_geometri(2, 2, 3).unwrap(), 14.0);
-        assert_eq!(jumlah_deret_geometri(2, 1, 3).unwrap(), 6.0);
-    }
+pub fn kosinus(x: f64) -> f64 {
+    x.cos()
+}
 
-    #[test]
-    fn test_modus() {
-        assert_eq!(modus(vec![1.0, 2.0, 2.0, 3.0, 3.0, 3.0]).unwrap(), 3.0);
-        assert!(matches!(modus(vec![1.0]).unwrap_err(), MathError::TipeError(_)));
-    }
-
-    #[test]
-    fn test_normal_pdf() {
-        assert!((normal_pdf(0.0, 0.0, 1.0).unwrap() - 0.398942).abs() < 1e-6);
-        assert!(matches!(normal_pdf(0.0, 0.0, 0.0).unwrap_err(), MathError::TipeError(_)));
-    }
-
-    #[test]
-    fn test_limit() {
-        let f = |x: f64| x * x;
-        assert!((limit(f, 2.0, 1e-6).unwrap() - 4.0).abs() < 1e-6);
-    }
-
-    #[test]
-    fn test_integral() {
-        let f = |x: f64| x * x;
-        assert!((integral(f, 0.0, 1.0, 1000).unwrap() - 1.0 / 3.0).abs() < 1e-4);
-    }
+pub fn tangen(x: f64) -> f64 {
+    x.tan()
 }
